@@ -12,7 +12,9 @@ func main() {
 	getEnv := func(key string) {
 		_, ok := os.LookupEnv(key)
 		if !ok {
-			fmt.Printf("[ FATAL ] %s not set.\n[ FATAL ] SLACK_API_URL and MESSAGE env vars must be defined!\n[ FATAL ] MESSAGE shall be a json like {\"channel\": \"#devops\", \"username\": \"test\", \"text\": \"This is another test.\"}\n", key)
+			fmt.Printf("[ FATAL ] %s not set."+
+				"[ FATAL ] SLACK_API_URL and MESSAGE env vars must be defined!"+
+				"[ FATAL ] MESSAGE shall be a json like {\"channel\": \"#devops\", \"username\": \"test\", \"text\": \"This is another test.\"}\n", key)
 			os.Exit(1)
 		} else {
 			fmt.Printf("%s found\n", key)
@@ -22,6 +24,8 @@ func main() {
 	getEnv("MESSAGE")
 	var url = os.Getenv("SLACK_API_URL")
 	var jsonStr = []byte(os.Getenv("MESSAGE"))
+	// var jsonValue, _ = json.Marshal(jsonStr)
+	fmt.Printf("MESSAGE is:\n%s\n", jsonStr)
 
 	http.DefaultTransport.(*http.Transport).TLSClientConfig = &tls.Config{InsecureSkipVerify: true}
 	req, err := http.NewRequest("POST", url, bytes.NewBuffer(jsonStr))
