@@ -11,6 +11,8 @@ System variables:
 
 `docker run --rm -e MESSAGE=$MESSAGE -e API_URL=$API_URL suncheez/slacker`
 
+Use `DEBUG="whatever"` variable to have extended output.
+
 ## Why
 
 Because curl isn't available everywhere and just for fun.
